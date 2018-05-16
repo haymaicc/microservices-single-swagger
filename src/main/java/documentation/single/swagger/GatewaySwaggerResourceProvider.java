@@ -23,35 +23,13 @@ public class GatewaySwaggerResourceProvider implements SwaggerResourcesProvider 
     @Autowired
     private SwaggerServicesConfig swaggerServiceList;
 
-    private final Logger log = LoggerFactory.getLogger(GatewaySwaggerResourceProvider.class);
-
-    //Can be used to get the list from registry/gateway later.
-    //@Inject
-    //private ProxyRouteLocator routeLocator;
-
-    //@Inject
-    //private DiscoveryClient discoveryClient;
-    
-    public GatewaySwaggerResourceProvider() {
-
-    }
-
 	@Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
 
-        //Add the default swagger resource that correspond to the gateway's own swagger doc        
-        //resources.add(swaggerResource("Default", env.getRequiredProperty("url"), "2.0"));
-
         swaggerServiceList.getServices().forEach(service -> {
         	resources.add(swaggerResource(service.getName(),service.getUrl(), service.getVersion()));
         });
-        
-        //Add the registered microservices swagger docs as additional swagger resources
-        //Map<String, String> routes = routeLocator.getRoutes();
-        //routes.forEach((path, serviceId) -> {
-        //    resources.add(swaggerResource(serviceId, path.replace("**","v2/api-docs"), "2.0"));
-        //});
 
         return resources;
     }

@@ -10,35 +10,33 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableAutoConfiguration
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix="documentation.swagger")
+@ConfigurationProperties(prefix = "documentation.swagger")
 public class SwaggerServicesConfig {
 
+	List<SwaggerServices> swagger;
 
-    List<SwaggerServices> swagger;
+	public List<SwaggerServices> getServices() {
+		return swagger;
+	}
 
-    public List<SwaggerServices> getServices() {
-        return swagger;
-    }
+	public void setServices(List<SwaggerServices> swaggerResources) {
+		this.swagger = swaggerResources;
+	}
 
-    public void setServices(List<SwaggerServices> swaggerResources) {
-        this.swagger = swaggerResources;
-    }
+	@EnableConfigurationProperties
+	@ConfigurationProperties(prefix = "documentation.swagger.services")
+	public static class SwaggerServices {
+		private String name;
+		private String url;
+		private String version;
 
+		public String getName() {
+			return name;
+		}
 
-    @EnableConfigurationProperties
-    @ConfigurationProperties(prefix="documentation.swagger.services")
-    public static class SwaggerServices{
-        private String name;
-        private String url;
-        private String version;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+		public void setName(String name) {
+			this.name = name;
+		}
 
 		public String getUrl() {
 			return url;
@@ -60,8 +58,7 @@ public class SwaggerServicesConfig {
 		public String toString() {
 			return "SwaggerServices [name=" + name + ", url=" + url + ", version=" + version + "]";
 		}
-     
 
-    }   
+	}
 
 }

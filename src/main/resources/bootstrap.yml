@@ -1,3 +1,3 @@
 spring:
   application:
-    name: single-swagger-documentation-server
+    name: swagger-servive
